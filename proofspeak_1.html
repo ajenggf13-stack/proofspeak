@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ProofSpeak — Kampanye kesadaran kekerasan seksual. Platform untuk penyintas, petisi, dan aksi nyata.">
+<title>ProofSpeak — Suaramu, Buktimu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PROOFSPEAK — DESIGN SYSTEM
+   Palette: #171817 | #e0e0e0 | #386069 | #f6c8ee | #f0fc2f
+   ============================================================ */
+:root {
+  --black: #171817;
+  --gray: #e0e0e0;
+  --teal: #386069;
+  --pink: #f6c8ee;
+  --lime: #f0fc2f;
+  --white: #ffffff;
+  --dark-surface: #1e2020;
+  --darker-surface: #131413;
+  --border: rgba(224,224,224,0.12);
+  --border-hover: rgba(224,224,224,0.28);
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-body: 'Inter', 'Helvetica Neue', Helvetica, sans-serif;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--black);
+  color: var(--gray);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.page { display: none; }
+.page.active { display: block; animation: fadeIn .4s var(--ease); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.container { max-width: 1180px; margin: 0 auto; padding: 0 2rem; }
+.container-narrow { max-width: 720px; margin: 0 auto; padding: 0 2rem; }
+.container-wide { max-width: 1380px; margin: 0 auto; padding: 0 2rem; }
+
+.serif { font-family: var(--font-display); }
+.teal { color: var(--teal); }
+.pink { color: var(--pink); }
+.lime { color: var(--lime); }
+.muted { color: rgba(224,224,224,.45); }
+
+.tag {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .3rem .85rem;
+  border: 1px solid var(--border-hover);
+  border-radius: 2px;
+  color: rgba(224,224,224,.6);
+}
+.tag-teal { border-color: var(--teal); color: var(--teal); }
+.tag-pink { border-color: rgba(246,200,238,.4); color: var(--pink); }
+.tag-lime { border-color: rgba(240,252,47,.3); color: var(--lime); }
+
+.divider { height: 1px; background: var(--border); margin: 0; }
+
+/* ============================================================
+   TYPOGRAPHY SCALE
+   ============================================================ */
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 300; color: var(--gray); line-height: 1.1; }
+
+.display-xl { font-size: clamp(3.5rem, 10vw, 9rem); letter-spacing: -.02em; line-height: .95; }
+.display-lg { font-size: clamp(2.5rem, 6vw, 5.5rem); letter-spacing: -.015em; line-height: 1.0; }
+.display-md { font-size: clamp(1.8rem, 4vw, 3.2rem); letter-spacing: -.01em; }
+.display-sm { font-size: clamp(1.3rem, 3vw, 2rem); letter-spacing: -.005em; }
+.body-lg { font-size: 1.05rem; line-height: 1.75; font-weight: 300; }
+.body-sm { font-size: .825rem; line-height: 1.6; }
+.label { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-body); font-size: .78rem;
+  font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+  cursor: pointer; border: none; text-decoration: none;
+  transition: all .25s var(--ease); white-space: nowrap;
+  border-radius: 2px;
+}
+.btn-primary {
+  background: var(--lime); color: var(--black);
+  padding: .9rem 2.2rem;
+}
+.btn-primary:hover { background: #dcf022; transform: translateY(-1px); }
+.btn-outline {
+  background: transparent; color: var(--gray);
+  border: 1px solid var(--border-hover);
+  padding: .85rem 2rem;
+}
+.btn-outline:hover { border-color: var(--gray); background: rgba(224,224,224,.05); }
+.btn-teal {
+  background: var(--teal); color: var(--white);
+  padding: .9rem 2.2rem;
+}
+.btn-teal:hover { background: #2f5058; }
+.btn-ghost {
+  background: transparent; color: rgba(224,224,224,.5);
+  padding: .75rem 1.5rem;
+  border: 1px solid transparent;
+}
+.btn-ghost:hover { color: var(--gray); border-color: var(--border); }
+.btn-sm { font-size: .7rem; padding: .6rem 1.4rem; }
+.btn-full { width: 100%; justify-content: center; }
+
+/* ============================================================
+   CRISIS BAR
+   ============================================================ */
+.crisis-bar {
+  background: var(--teal);
+  padding: .55rem 2rem;
+  text-align: center;
+  font-size: .72rem;
+  letter-spacing: .06em;
+  font-weight: 400;
+  color: rgba(255,255,255,.85);
+  position: relative; z-index: 200;
+}
+.crisis-bar a { color: var(--lime); text-decoration: none; font-weight: 500; }
+.crisis-bar a:hover { text-decoration: underline; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav-wrap {
+  position: sticky; top: 0; z-index: 150;
+  background: rgba(23,24,23,.92);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+.nav {
+  max-width: 1380px; margin: 0 auto; padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 62px;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.55rem; font-weight: 300;
+  letter-spacing: .02em;
+  color: var(--gray);
+  cursor: pointer;
+  display: flex; align-items: center; gap: .4rem;
+}
+.nav-logo .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); display: inline-block; }
+.nav-links { display: flex; align-items: center; gap: 0; }
+.nav-links button {
+  background: none; border: none;
+  font-family: var(--font-body); font-size: .72rem;
+  font-weight: 400; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(224,224,224,.5); cursor: pointer;
+  padding: .5rem 1.1rem; border-radius: 2px;
+  transition: color .2s;
+}
+.nav-links button:hover, .nav-links button.active-nav { color: var(--gray); }
+.nav-right { display: flex; align-items: center; gap: .75rem; }
+.lang-btn {
+  background: none; border: 1px solid var(--border);
+  font-family: var(--font-body); font-size: .68rem;
+  font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(224,224,224,.45); cursor: pointer;
+  padding: .35rem .75rem; border-radius: 2px;
+  transition: all .2s;
+}
+.lang-btn.active { border-color: var(--lime); color: var(--lime); }
+.lang-btn:hover { border-color: var(--border-hover); color: var(--gray); }
+#nav-user-area { display: flex; align-items: center; gap: .5rem; }
+.user-pill {
+  display: flex; align-items: center; gap: .4rem;
+  background: rgba(56,96,105,.2); border: 1px solid rgba(56,96,105,.4);
+  border-radius: 2px; padding: .3rem .85rem;
+  font-size: .7rem; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--teal);
+}
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+.form-group { margin-bottom: 1.25rem; }
+.form-group label {
+  display: block; font-size: .72rem; letter-spacing: .08em;
+  text-transform: uppercase; color: rgba(224,224,224,.45);
+  margin-bottom: .55rem; font-weight: 500;
+}
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: .9rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: .875rem; font-weight: 300;
+  color: var(--gray);
+  transition: border-color .2s;
+  outline: none;
+  -webkit-appearance: none;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  border-color: var(--teal);
+  background: rgba(56,96,105,.06);
+}
+.form-group select option { background: #1e2020; }
+.form-group textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.checkbox-wrap { display: flex; align-items: flex-start; gap: .75rem; margin-bottom: 1.25rem; }
+.checkbox-wrap input[type=checkbox] {
+  width: 16px; height: 16px; margin-top: 2px;
+  accent-color: var(--teal); cursor: pointer; flex-shrink: 0;
+}
+.checkbox-wrap label { font-size: .82rem; color: rgba(224,224,224,.5); line-height: 1.5; cursor: pointer; font-weight: 300; }
+.form-note { font-size: .73rem; color: rgba(224,224,224,.3); margin-top: .4rem; line-height: 1.5; }
+.form-card {
+  background: var(--dark-surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2.75rem;
+  max-width: 680px; margin: 0 auto;
+}
+.success-msg {
+  background: rgba(56,96,105,.15);
+  border: 1px solid rgba(56,96,105,.4);
+  border-radius: 4px;
+  padding: 1.5rem 1.75rem;
+  text-align: center;
+  display: none;
+  margin-bottom: 1.5rem;
+}
+.success-msg.show { display: block; }
+.success-msg h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 300; color: var(--gray); margin-bottom: .4rem; }
+.success-msg p { font-size: .82rem; color: rgba(224,224,224,.45); }
+.error-msg {
+  background: rgba(200,60,60,.1); border: 1px solid rgba(200,60,60,.3);
+  border-radius: 4px; padding: .75rem 1rem; font-size: .8rem;
+  color: #f09595; margin-bottom: 1rem; display: none;
+}
+.error-msg.show { display: block; }
+
+/* ============================================================
+   TABLES (ADMIN)
+   ============================================================ */
+.tbl-wrap { overflow-x: auto; }
+.tbl {
+  width: 100%; border-collapse: collapse;
+  background: var(--dark-surface);
+  border: 1px solid var(--border);
+  border-radius: 4px; overflow: hidden;
+}
+.tbl th {
+  padding: .85rem 1.1rem; font-size: .65rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(224,224,224,.3); font-weight: 500;
+  text-align: left; border-bottom: 1px solid var(--border);
+  background: var(--darker-surface);
+}
+.tbl td {
+  padding: .85rem 1.1rem; font-size: .82rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--gray); vertical-align: middle;
+}
+.tbl tr:last-child td { border-bottom: none; }
+.tbl tr:hover td { background: rgba(255,255,255,.02); }
+.badge {
+  display: inline-block; font-size: .64rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: .2rem .6rem; border-radius: 2px; font-weight: 500;
+}
+.badge-pending { background: rgba(240,252,47,.1); color: var(--lime); }
+.badge-approved { background: rgba(56,96,105,.2); color: #5ba0ae; }
+.badge-rejected { background: rgba(200,60,60,.1); color: #f09595; }
+.badge-reader { background: rgba(246,200,238,.1); color: var(--pink); }
+.badge-admin { background: rgba(56,96,105,.2); color: #5ba0ae; }
+.ab {
+  font-size: .65rem; letter-spacing: .06em; text-transform: uppercase;
+  padding: .28rem .7rem; border-radius: 2px; cursor: pointer;
+  border: none; font-family: var(--font-body); font-weight: 500;
+  margin-right: .25rem; transition: all .2s;
+}
+.ab-approve { background: rgba(56,96,105,.2); color: #5ba0ae; }
+.ab-approve:hover { background: rgba(56,96,105,.35); }
+.ab-reject { background: rgba(200,60,60,.1); color: #f09595; }
+.ab-reject:hover { background: rgba(200,60,60,.2); }
+.ab-view { background: rgba(224,224,224,.06); color: rgba(224,224,224,.6); }
+.ab-view:hover { background: rgba(224,224,224,.1); }
+
+/* ============================================================
+   HOME PAGE
+   ============================================================ */
+.hero {
+  min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 6rem 2rem 4rem;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 40%, rgba(56,96,105,.18) 0%, transparent 65%),
+              radial-gradient(ellipse at 15% 80%, rgba(246,200,238,.07) 0%, transparent 55%);
+}
+.hero-noise {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: .4;
+}
+.hero-inner { position: relative; max-width: 1380px; margin: 0 auto; width: 100%; }
+.hero-label {
+  font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 1.5rem; display: flex; align-items: center; gap: .75rem;
+}
+.hero-label::before { content: ''; width: 32px; height: 1px; background: var(--teal); display: inline-block; }
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 11rem);
+  font-weight: 300; letter-spacing: -.025em; line-height: .92;
+  color: var(--gray); margin-bottom: 2.5rem;
+}
+.hero-title em { font-style: italic; color: rgba(224,224,224,.35); }
+.hero-title .accent { color: var(--lime); }
+.hero-bottom {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 2rem; flex-wrap: wrap;
+}
+.hero-desc { font-size: 1rem; font-weight: 300; color: rgba(224,224,224,.5); max-width: 420px; line-height: 1.7; }
+.hero-actions { display: flex; gap: .75rem; flex-wrap: wrap; }
+.hero-scroll {
+  position: absolute; right: 0; bottom: -8rem;
+  font-size: .62rem; letter-spacing: .15em; text-transform: uppercase;
+  color: rgba(224,224,224,.2); writing-mode: vertical-rl;
+  display: flex; align-items: center; gap: .75rem;
+}
+.hero-scroll::after { content: ''; width: 1px; height: 48px; background: rgba(224,224,224,.15); display: block; }
+
+.stat-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: repeat(3,1fr);
+}
+.stat-item {
+  padding: 2.25rem 2rem;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--font-display); font-size: 3.5rem;
+  font-weight: 300; color: var(--gray); letter-spacing: -.02em; line-height: 1;
+}
+.stat-label { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(224,224,224,.3); }
+
+/* WHY SECTION */
+.section-pad { padding: 7rem 0; }
+.section-pad-sm { padding: 4rem 0; }
+.section-header { margin-bottom: 4rem; }
+.section-index { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(224,224,224,.25); margin-bottom: 1rem; }
+
+.why-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); }
+.why-card {
+  background: var(--black); padding: 2.5rem 2rem;
+  position: relative; overflow: hidden;
+  transition: background .3s;
+}
+.why-card:hover { background: var(--dark-surface); }
+.why-card-num {
+  font-family: var(--font-display); font-size: 5rem; font-weight: 300;
+  color: rgba(224,224,224,.05); line-height: 1; position: absolute;
+  top: 1rem; right: 1.5rem;
+}
+.why-card h3 { font-size: 1.25rem; font-weight: 300; margin-bottom: .75rem; color: var(--gray); }
+.why-card p { font-size: .85rem; color: rgba(224,224,224,.4); line-height: 1.7; font-weight: 300; }
+
+/* FEATURED STRIP */
+.featured-strip {
+  background: var(--teal);
+  padding: 3.5rem 2rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+}
+.featured-strip h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 3rem); font-weight: 300; color: var(--white); max-width: 560px; }
+.featured-strip h2 em { font-style: italic; opacity: .6; }
+
+/* CAMPAIGN STRIP */
+.marquee-wrap { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.1rem 0; }
+.marquee-track {
+  display: flex; gap: 4rem; width: max-content;
+  animation: marquee 22s linear infinite;
+}
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-item { font-family: var(--font-display); font-size: 1.4rem; font-weight: 300; color: rgba(224,224,224,.2); white-space: nowrap; display: flex; align-items: center; gap: 4rem; }
+.marquee-item span { color: var(--teal); font-size: .8rem; }
+
+/* ============================================================
+   PETITION PAGE
+   ============================================================ */
+.petition-hero {
+  padding: 7rem 2rem 5rem;
+  position: relative; overflow: hidden;
+}
+.petition-hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(240,252,47,.06) 0%, transparent 60%);
+}
+.progress-wrap { margin: 2.5rem 0 .75rem; }
+.progress-track { background: rgba(224,224,224,.08); border-radius: 0; height: 3px; overflow: hidden; }
+.progress-fill { background: var(--lime); height: 100%; transition: width .6s var(--ease); }
+.progress-meta { display: flex; justify-content: space-between; margin-top: .6rem; }
+.progress-meta span { font-size: .7rem; letter-spacing: .08em; color: rgba(224,224,224,.35); text-transform: uppercase; }
+.progress-meta strong { color: var(--lime); }
+
+.signers-list { margin-top: 3rem; }
+.signer-row {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1.1rem 0; border-bottom: 1px solid var(--border);
+}
+.signer-row:first-child { border-top: 1px solid var(--border); }
+.signer-icon {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(56,96,105,.2); border: 1px solid rgba(56,96,105,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1rem; color: var(--teal); font-style: italic;
+}
+.signer-info p { font-size: .85rem; color: var(--gray); font-weight: 400; }
+.signer-info span { font-size: .72rem; color: rgba(224,224,224,.3); }
+
+/* ============================================================
+   STORIES PAGE
+   ============================================================ */
+.stories-hero { padding: 6rem 2rem 3rem; }
+.stories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1px; background: var(--border); }
+.story-card {
+  background: var(--black); padding: 2.25rem;
+  cursor: pointer; transition: background .25s;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.story-card:hover { background: var(--dark-surface); }
+.story-card-title { font-family: var(--font-display); font-size: 1.45rem; font-weight: 300; color: var(--gray); line-height: 1.2; }
+.story-card-excerpt { font-size: .83rem; color: rgba(224,224,224,.4); line-height: 1.7; font-weight: 300; flex: 1; }
+.story-card-meta { display: flex; justify-content: space-between; align-items: center; }
+.story-card-author { font-size: .72rem; letter-spacing: .06em; color: rgba(224,224,224,.3); text-transform: uppercase; }
+.story-card-tag { font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; padding: .2rem .6rem; border: 1px solid var(--border); color: rgba(224,224,224,.25); border-radius: 2px; }
+
+/* SUBMIT STORY */
+.submit-hero { padding: 6rem 2rem 4rem; }
+.trauma-notice {
+  background: rgba(56,96,105,.08); border: 1px solid rgba(56,96,105,.25);
+  border-radius: 4px; padding: 1.4rem 1.75rem; margin-bottom: 2rem;
+}
+.trauma-notice p { font-size: .83rem; color: rgba(224,224,224,.5); line-height: 1.7; font-weight: 300; }
+.trauma-notice strong { color: var(--teal); font-weight: 500; }
+
+/* ============================================================
+   NECKLACE PAGE
+   ============================================================ */
+.necklace-hero { padding: 6rem 2rem 4rem; }
+.necklace-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1px; background: var(--border); margin-bottom: 1px; }
+.necklace-card {
+  background: var(--black); padding: 0;
+  cursor: pointer; transition: background .25s;
+  overflow: hidden; display: flex; flex-direction: column;
+  border: 2px solid transparent;
+}
+.necklace-card:hover { background: var(--dark-surface); }
+.necklace-card.selected { border-color: var(--lime); }
+.necklace-img {
+  height: 180px; background: var(--dark-surface);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem; position: relative; overflow: hidden;
+}
+.necklace-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(23,24,23,.6)); }
+.necklace-body { padding: 1.5rem 1.75rem; flex: 1; display: flex; flex-direction: column; gap: .5rem; }
+.necklace-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 300; color: var(--gray); }
+.necklace-desc { font-size: .78rem; color: rgba(224,224,224,.35); line-height: 1.6; flex: 1; }
+.necklace-price { font-size: 1rem; color: var(--lime); font-weight: 300; }
+
+/* ============================================================
+   ABOUT PAGE
+   ============================================================ */
+.about-hero { padding: 7rem 2rem 4rem; position: relative; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.about-mission {
+  font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-weight: 300; line-height: 1.3; color: var(--gray);
+}
+.about-mission em { font-style: italic; color: rgba(224,224,224,.35); }
+.about-values { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
+.about-value { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+.about-value h4 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 300; color: var(--gray); margin-bottom: .4rem; }
+.about-value p { font-size: .83rem; color: rgba(224,224,224,.35); line-height: 1.7; font-weight: 300; }
+
+/* ============================================================
+   CONTACT PAGE
+   ============================================================ */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; padding: 6rem 0; }
+.contact-info h2 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 300; margin-bottom: 1.5rem; }
+.contact-info p { font-size: .875rem; color: rgba(224,224,224,.4); line-height: 1.8; margin-bottom: 2rem; font-weight: 300; }
+.contact-detail { display: flex; flex-direction: column; gap: 1rem; }
+.contact-detail-item { display: flex; flex-direction: column; gap: .2rem; }
+.contact-detail-item span { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(224,224,224,.25); }
+.contact-detail-item a, .contact-detail-item p { font-size: .875rem; color: var(--teal); text-decoration: none; font-weight: 300; }
+
+/* ============================================================
+   CAMPAIGN PAGE
+   ============================================================ */
+.campaign-hero { padding: 7rem 2rem 4rem; }
+.campaign-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 1px; background: var(--border); }
+.campaign-card {
+  background: var(--black); padding: 2.5rem;
+  transition: background .25s;
+}
+.campaign-card:hover { background: var(--dark-surface); }
+.campaign-card .num { font-family: var(--font-display); font-size: 4rem; font-weight: 300; line-height: 1; margin-bottom: .75rem; }
+.campaign-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 300; margin-bottom: .75rem; color: var(--gray); }
+.campaign-card p { font-size: .83rem; color: rgba(224,224,224,.38); line-height: 1.7; font-weight: 300; }
+
+/* ============================================================
+   AUTH PAGE
+   ============================================================ */
+.auth-wrap { max-width: 460px; margin: 5rem auto; padding: 2rem; }
+.auth-logo { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; text-align: center; margin-bottom: .25rem; color: var(--gray); }
+.auth-sub { font-size: .78rem; letter-spacing: .05em; text-align: center; color: rgba(224,224,224,.3); margin-bottom: 2.5rem; }
+.role-tabs { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 1.75rem; }
+.role-tab { background: none; border: none; padding: .75rem; font-family: var(--font-body); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(224,224,224,.3); cursor: pointer; transition: .2s; font-weight: 500; }
+.role-tab.active { background: var(--teal); color: var(--white); }
+.auth-hint { background: rgba(56,96,105,.08); border: 1px solid rgba(56,96,105,.2); border-radius: 2px; padding: .75rem 1rem; font-size: .75rem; color: rgba(224,224,224,.35); margin-bottom: 1.5rem; line-height: 1.5; }
+.auth-switch { text-align: center; font-size: .78rem; color: rgba(224,224,224,.3); margin-top: 1.25rem; }
+.auth-switch button { background: none; border: none; color: var(--teal); font-family: var(--font-body); font-size: .78rem; cursor: pointer; text-decoration: underline; }
+.auth-divider { display: flex; align-items: center; gap: 1rem; margin: 1rem 0; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.auth-divider span { font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(224,224,224,.2); }
+
+/* ============================================================
+   ADMIN
+   ============================================================ */
+.admin-layout { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 110px); }
+.admin-sidebar { background: var(--darker-surface); border-right: 1px solid var(--border); padding: 1.5rem 0; }
+.sidebar-label { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(224,224,224,.2); padding: .75rem 1.5rem .2rem; font-weight: 500; }
+.sidebar-btn {
+  display: block; width: 100%; background: none; border: none;
+  font-family: var(--font-body); font-size: .75rem; letter-spacing: .05em; text-transform: uppercase;
+  color: rgba(224,224,224,.35); cursor: pointer; text-align: left;
+  padding: .7rem 1.5rem; transition: .2s; font-weight: 400;
+}
+.sidebar-btn:hover, .sidebar-btn.active { background: rgba(56,96,105,.15); color: var(--teal); }
+.sidebar-btn.danger { color: rgba(240,149,149,.4); }
+.sidebar-btn.danger:hover { color: #f09595; background: rgba(200,60,60,.1); }
+.admin-main { padding: 2rem 2.5rem; background: var(--black); }
+.admin-panel { display: none; }
+.admin-panel.active { display: block; }
+.admin-title { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--gray); margin-bottom: 1.5rem; }
+.admin-metrics { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); margin-bottom: 2rem; }
+.a-metric { background: var(--dark-surface); padding: 1.5rem; }
+.a-metric-val { font-family: var(--font-display); font-size: 2.4rem; font-weight: 300; color: var(--lime); line-height: 1; }
+.a-metric-label { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(224,224,224,.25); margin-top: .3rem; }
+.pending-item {
+  background: var(--dark-surface); border: 1px solid var(--border);
+  border-radius: 2px; padding: 1.1rem 1.4rem; margin-bottom: .6rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.pending-item-title { font-size: .875rem; color: var(--gray); font-weight: 400; }
+.pending-item-meta { font-size: .72rem; color: rgba(224,224,224,.3); margin-top: .15rem; }
+
+/* ============================================================
+   READER PORTAL
+   ============================================================ */
+.reader-layout { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+.reader-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; }
+.reader-tab {
+  background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  font-family: var(--font-body); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(224,224,224,.3); cursor: pointer; padding: .75rem 1.5rem;
+  transition: .2s; font-weight: 500;
+}
+.reader-tab.active { color: var(--gray); border-bottom-color: var(--teal); }
+.reader-panel { display: none; }
+.reader-panel.active { display: block; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 4rem 2rem;
+}
+.footer-grid {
+  max-width: 1380px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem;
+}
+.footer-logo { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; color: var(--gray); margin-bottom: .5rem; }
+.footer-tagline { font-size: .78rem; color: rgba(224,224,224,.25); line-height: 1.6; max-width: 260px; font-weight: 300; margin-bottom: 1.5rem; }
+.footer-col h4 { font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(224,224,224,.2); margin-bottom: 1rem; font-weight: 500; font-family: var(--font-body); }
+.footer-col button, .footer-col a {
+  display: block; background: none; border: none;
+  font-family: var(--font-body); font-size: .8rem; font-weight: 300;
+  color: rgba(224,224,224,.3); cursor: pointer; text-decoration: none;
+  margin-bottom: .55rem; text-align: left; transition: color .2s;
+}
+.footer-col button:hover, .footer-col a:hover { color: var(--gray); }
+.footer-bottom { max-width: 1380px; margin: 3rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-bottom span { font-size: .68rem; color: rgba(224,224,224,.2); letter-spacing: .04em; }
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-backdrop {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.75); z-index: 500;
+  align-items: center; justify-content: center;
+  backdrop-filter: blur(6px);
+}
+.modal-backdrop.open { display: flex; }
+.modal {
+  background: var(--dark-surface); border: 1px solid var(--border);
+  border-radius: 4px; padding: 2.5rem; max-width: 600px; width: 90%;
+  max-height: 85vh; overflow-y: auto; position: relative;
+  animation: fadeIn .3s var(--ease);
+}
+.modal-close {
+  position: absolute; top: 1.25rem; right: 1.25rem;
+  background: none; border: none; color: rgba(224,224,224,.3);
+  font-size: 1.1rem; cursor: pointer; transition: color .2s;
+}
+.modal-close:hover { color: var(--gray); }
+.modal-tag { font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: .75rem; }
+.modal-title { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--gray); margin-bottom: .5rem; line-height: 1.2; }
+.modal-meta { font-size: .72rem; color: rgba(224,224,224,.25); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 1.5rem; }
+.modal-body { font-size: .9rem; color: rgba(224,224,224,.55); line-height: 1.85; font-weight: 300; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .admin-layout { grid-template-columns: 1fr; }
+  .admin-sidebar { display: flex; overflow-x: auto; padding: .5rem; border-right: none; border-bottom: 1px solid var(--border); }
+  .sidebar-label { display: none; }
+  .admin-metrics { grid-template-columns: 1fr 1fr; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .hero-title { font-size: 3.5rem; }
+  .hero-bottom { flex-direction: column; align-items: flex-start; }
+  .stat-strip { grid-template-columns: 1fr; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .nav-links button { padding: .4rem .6rem; font-size: .65rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- CRISIS BAR -->
+<div class="crisis-bar">
+  Jika kamu dalam bahaya — <a href="tel:119">119</a> (Indonesia) &nbsp;|&nbsp; SAPA 1800-111-120 (Gratis, 24/7)
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  If you are in danger — call <a href="tel:119">119</a> or SAPA 1800-111-120
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav-wrap">
+  <nav class="nav">
+    <div class="nav-logo" onclick="showPage('home')">
+      ProofSpeak <div class="dot"></div>
+    </div>
+    <div class="nav-links">
+      <button onclick="showPage('home')" id="nav-home" class="active-nav">Home</button>
+      <button onclick="showPage('about')" id="nav-about">About</button>
+      <button onclick="showPage('campaign')" id="nav-campaign">Campaign</button>
+      <button onclick="showPage('petition')" id="nav-petition">Petition</button>
+      <button onclick="showPage('stories')" id="nav-stories">Stories</button>
+      <button onclick="showPage('necklace')" id="nav-necklace">Necklace</button>
+      <button onclick="showPage('contact')" id="nav-contact">Contact</button>
+    </div>
+    <div class="nav-right">
+      <button class="lang-btn active" id="lang-id" onclick="setLang('id')">ID</button>
+      <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
+      <div id="nav-user-area"></div>
+    </div>
+  </nav>
+</div>
+
+<!-- ============================================================
+     HOME PAGE
+     ============================================================ -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-inner">
+      <div class="hero-label" id="h-label">Kampanye Kesadaran Kekerasan Seksual</div>
+      <h1 class="hero-title">
+        <span id="h-line1">Suara</span><br>
+        <em id="h-line2">adalah</em><br>
+        <span class="accent" id="h-line3">Bukti.</span>
+      </h1>
+      <div class="hero-bottom">
+        <p class="hero-desc" id="h-desc">Untuk semua penyintas yang lama diam. Proofspeak adalah ruang untuk bersuara, bersaksi, dan bergerak bersama.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="showPage('petition')" id="h-btn1">Tanda Tangan Petisi</button>
+          <button class="btn btn-outline" onclick="showPage('submit-story')" id="h-btn2">Bagikan Ceritamu</button>
+        </div>
+      </div>
+      <div class="hero-scroll">Scroll</div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marquee-track">
+      <div class="marquee-item">Suaramu Nyata <span>✦</span> Kamu Dipercaya <span>✦</span> Tidak Salahmu <span>✦</span> Your Voice Matters <span>✦</span> You Are Believed <span>✦</span> Not Your Fault <span>✦</span> Suaramu Nyata <span>✦</span> Kamu Dipercaya <span>✦</span> Tidak Salahmu <span>✦</span> Your Voice Matters <span>✦</span> You Are Believed <span>✦</span> Not Your Fault</div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stat-strip">
+    <div class="stat-item">
+      <div class="stat-num" id="s-sigs">0</div>
+      <div class="stat-label" id="s-sigs-label">Tanda Tangan Petisi</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="s-stories">0</div>
+      <div class="stat-label" id="s-stories-label">Cerita Dipublikasikan</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="s-orders">0</div>
+      <div class="stat-label" id="s-orders-label">Kalung Dipesan</div>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-index">01 / Mengapa</div>
+        <h2 class="display-md" style="max-width:600px" id="why-title">Diam bukan berarti setuju. Setiap suara adalah keberanian.</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-card-num">1</div>
+          <span class="tag tag-teal" style="margin-bottom:1.25rem;display:inline-block">Fakta</span>
+          <h3 id="wc1-title">1 dari 3 Perempuan</h3>
+          <p id="wc1-body">mengalami kekerasan seksual dalam hidupnya. Data KPAI & Komnas Perempuan 2023 menunjukkan peningkatan 40% kasus yang dilaporkan.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card-num">2</div>
+          <span class="tag tag-pink" style="margin-bottom:1.25rem;display:inline-block">Realita</span>
+          <h3 id="wc2-title">Banyak Tak Berani Melapor</h3>
+          <p id="wc2-body">Stigma, ketidakpercayaan, dan sistem yang tidak aman membuat mayoritas penyintas memilih diam. Kita perlu mengubah itu.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card-num">3</div>
+          <span class="tag tag-lime" style="margin-bottom:1.25rem;display:inline-block">Aksi</span>
+          <h3 id="wc3-title">Kamu Bisa Bergerak</h3>
+          <p id="wc3-body">Dengan menandatangani petisi, berbagi cerita, atau mengenakan kalung solidaritas — setiap tindakan kecil membangun perubahan besar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED STRIP -->
+  <div class="featured-strip">
+    <h2 id="feat-text">Setiap penyintas berhak didengar, <em>dipercaya, dan didampingi</em> tanpa syarat.</h2>
+    <button class="btn btn-outline" style="border-color:rgba(255,255,255,.3);color:#fff" onclick="showPage('stories')" id="feat-btn">Baca Cerita</button>
+  </div>
+
+  <!-- PRODUCTS PREVIEW -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-index">02 / Kalung Solidaritas</div>
+        <h2 class="display-md" id="prod-title">Kenakan. Nyatakan. Dukung.</h2>
+        <p style="color:rgba(224,224,224,.35);font-size:.9rem;margin-top:.75rem;font-weight:300;max-width:480px" id="prod-sub">10% dari setiap pembelian mendukung layanan pendampingan penyintas.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--border)">
+        <div style="background:var(--black);padding:2rem;cursor:pointer;transition:background .25s" onclick="showPage('necklace')" onmouseover="this.style.background='var(--dark-surface)'" onmouseout="this.style.background='var(--black)'">
+          <div style="font-size:2.5rem;margin-bottom:1rem">○</div>
+          <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:300;margin-bottom:.35rem">Hope Circle</div>
+          <div style="font-size:.75rem;color:rgba(224,224,224,.3);margin-bottom:.75rem">Lingkaran keutuhan</div>
+          <div style="font-size:.85rem;color:var(--lime)">Rp 185.000</div>
+        </div>
+        <div style="background:var(--black);padding:2rem;cursor:pointer;transition:background .25s" onclick="showPage('necklace')" onmouseover="this.style.background='var(--dark-surface)'" onmouseout="this.style.background='var(--black)'">
+          <div style="font-size:2.5rem;margin-bottom:1rem">◇</div>
+          <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:300;margin-bottom:.35rem">Brave Heart</div>
+          <div style="font-size:.75rem;color:rgba(224,224,224,.3);margin-bottom:.75rem">Keberanian tanpa kata</div>
+          <div style="font-size:.85rem;color:var(--lime)">Rp 220.000</div>
+        </div>
+        <div style="background:var(--black);padding:2rem;cursor:pointer;transition:background .25s" onclick="showPage('necklace')" onmouseover="this.style.background='var(--dark-surface)'" onmouseout="this.style.background='var(--black)'">
+          <div style="font-size:2.5rem;margin-bottom:1rem">✦</div>
+          <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:300;margin-bottom:.35rem">Survivor Lotus</div>
+          <div style="font-size:.75rem;color:rgba(224,224,224,.3);margin-bottom:.75rem">Bangkit dari dalam</div>
+          <div style="font-size:.85rem;color:var(--lime)">Rp 250.000</div>
+        </div>
+        <div style="background:var(--teal);padding:2rem;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:.75rem" onclick="showPage('necklace')">
+          <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5)" id="see-all-label">Lihat Semua</div>
+          <button class="btn btn-outline" style="border-color:rgba(255,255,255,.4);color:#fff" id="see-all-btn">Koleksi Lengkap →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     ABOUT PAGE
+     ============================================================ -->
+<div id="page-about" class="page">
+  <section class="about-hero">
+    <div class="container">
+      <div class="section-index" style="margin-bottom:1.25rem">Tentang Kami / About</div>
+      <h1 class="display-lg" style="margin-bottom:3rem;max-width:800px" id="ab-title">ProofSpeak berdiri untuk mereka yang lama diam.</h1>
+      <div class="about-grid">
+        <div>
+          <p class="about-mission" id="ab-mission">Kami percaya bahwa <em>setiap kesaksian adalah kebenaran.</em> Bahwa diam bukan pilihan — melainkan ketidakberdayaan yang harus kita ubah bersama.</p>
+          <div style="margin-top:2.5rem">
+            <p class="body-lg" style="color:rgba(224,224,224,.4)" id="ab-body">ProofSpeak adalah platform kampanye kesadaran kekerasan seksual yang memadukan narasi penyintas, petisi kebijakan, dan produk solidaritas sebagai satu gerakan yang kohesif dan bermartabat.</p>
+          </div>
+        </div>
+        <div>
+          <div class="about-values">
+            <div class="about-value">
+              <h4>Keselamatan / Safety</h4>
+              <p>Setiap cerita dimoderasi sebelum ditayangkan. Anonimitas selalu menjadi pilihan.</p>
+            </div>
+            <div class="about-value">
+              <h4>Kepercayaan / Belief</h4>
+              <p>Kami percaya penyintas tanpa syarat. "Aku percaya kamu" adalah fondasi dari semua yang kami lakukan.</p>
+            </div>
+            <div class="about-value">
+              <h4>Keberanian / Courage</h4>
+              <p>Bersuara butuh keberanian luar biasa. Kami di sini untuk menemanimu, bukan menghakimi.</p>
+            </div>
+            <div class="about-value">
+              <h4>Aksi Nyata / Real Action</h4>
+              <p>Kampanye ini terhubung langsung ke petisi kebijakan, pendampingan, dan produk yang mendanai gerakan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     CAMPAIGN PAGE
+     ============================================================ -->
+<div id="page-campaign" class="page">
+  <section class="campaign-hero">
+    <div class="container">
+      <div class="section-index" style="margin-bottom:1.25rem">Kampanye / Campaign</div>
+      <h1 class="display-lg" style="margin-bottom:1rem" id="camp-title">Apa yang Kami Perjuangkan</h1>
+      <p class="body-lg" style="color:rgba(224,224,224,.35);max-width:560px;margin-bottom:4rem" id="camp-sub">Tiga pilar utama gerakan ProofSpeak untuk mengubah sistem dan budaya.</p>
+      <div class="campaign-grid">
+        <div class="campaign-card">
+          <div class="num" style="color:var(--lime)">01</div>
+          <h3 id="cc1-t">Reforma Hukum</h3>
+          <p id="cc1-b">Mendorong revisi UU TPKS agar mencakup semua bentuk kekerasan seksual digital, verbal, dan berbasis gender. Setiap penyintas berhak mendapat perlindungan hukum yang nyata.</p>
+        </div>
+        <div class="campaign-card">
+          <div class="num" style="color:var(--pink)">02</div>
+          <h3 id="cc2-t">Pendidikan Seksual</h3>
+          <p id="cc2-b">Mendorong kurikulum pendidikan seksual berbasis hak dan persetujuan di semua jenjang sekolah. Pencegahan dimulai dari pemahaman.</p>
+        </div>
+        <div class="campaign-card">
+          <div class="num" style="color:var(--teal)">03</div>
+          <h3 id="cc3-t">Ruang Aman Penyintas</h3>
+          <p id="cc3-b">Mendorong pemerintah menyediakan layanan krisis, shelter, dan pendampingan psikologis gratis yang mudah diakses di seluruh Indonesia.</p>
+        </div>
+      </div>
+      <div style="margin-top:3rem;padding-top:3rem;border-top:1px solid var(--border);display:flex;gap:1rem;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="showPage('petition')" id="camp-cta1">Dukung Petisi Kami</button>
+        <button class="btn btn-outline" onclick="showPage('submit-story')" id="camp-cta2">Bagikan Ceritamu</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PETITION PAGE
+     ============================================================ -->
+<div id="page-petition" class="page">
+  <section class="petition-hero">
+    <div class="petition-hero-bg"></div>
+    <div class="container-narrow" style="position:relative">
+      <div class="section-index" style="margin-bottom:1.25rem">Petisi / Petition</div>
+      <h1 class="display-lg" id="pet-title">Tanda Tangan.<br>Suaramu Berbobot.</h1>
+      <div class="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" id="pet-prog" style="width:0%"></div></div>
+        <div class="progress-meta">
+          <span id="pet-count-label"><strong id="pet-count">0</strong> tanda tangan</span>
+          <span id="pet-goal-label">Target: 10.000</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-narrow" style="padding-bottom:6rem">
+    <div class="form-card">
+      <div id="pet-success" class="success-msg">
+        <h3 id="pet-s-title">Terima kasih telah bersuara.</h3>
+        <p id="pet-s-body">Tanda tanganmu telah ditambahkan. Bagikan petisi ini untuk menjangkau lebih banyak orang.</p>
+      </div>
+      <div id="pet-form">
+        <h2 style="font-family:var(--font-display);font-size:1.6rem;font-weight:300;margin-bottom:.4rem" id="pet-form-title">Tambahkan Tanda Tanganmu</h2>
+        <p style="font-size:.82rem;color:rgba(224,224,224,.3);margin-bottom:2rem;font-weight:300" id="pet-form-sub">Informasimu aman dan tidak akan dibagikan ke pihak luar.</p>
+        <div class="form-row">
+          <div class="form-group"><label id="pf-l-fn">Nama Depan *</label><input type="text" id="pf-fn" placeholder="Nama depan"></div>
+          <div class="form-group"><label id="pf-l-ln">Nama Belakang *</label><input type="text" id="pf-ln" placeholder="Nama belakang"></div>
+        </div>
+        <div class="form-group"><label id="pf-l-em">Email *</label><input type="email" id="pf-em" placeholder="email@kamu.com"></div>
+        <div class="form-group"><label id="pf-l-loc">Kota / Negara</label><input type="text" id="pf-loc" placeholder="Jakarta, Indonesia"></div>
+        <div class="form-group"><label id="pf-l-com">Pesan (opsional)</label><textarea id="pf-com" placeholder="Mengapa kamu mendukung kampanye ini?" style="min-height:80px"></textarea></div>
+        <div class="checkbox-wrap"><input type="checkbox" id="pf-anon"><label for="pf-anon" id="pf-l-anon">Tampilkan nama saya sebagai Anonim</label></div>
+        <div class="checkbox-wrap"><input type="checkbox" id="pf-news"><label for="pf-news" id="pf-l-news">Saya ingin menerima update kampanye via email</label></div>
+        <button class="btn btn-primary btn-full" onclick="submitPetition()" id="pet-submit-btn">Tanda Tangani Petisi</button>
+        <p class="form-note" style="text-align:center;margin-top:.75rem" id="pet-privacy">Data kamu dilindungi dan tidak akan dijual atau dibagikan.</p>
+      </div>
+    </div>
+
+    <div class="signers-list" id="signers-list">
+      <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:300;color:var(--gray);margin-bottom:1.5rem;margin-top:3rem" id="sig-recent-label">Tanda Tangan Terbaru</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     STORIES PAGE
+     ============================================================ -->
+<div id="page-stories" class="page">
+  <section class="stories-hero">
+    <div class="container">
+      <div class="section-index" style="margin-bottom:1.25rem">Cerita / Stories</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem">
+        <h1 class="display-lg" style="max-width:640px" id="stor-title">Kesaksian <em style="font-style:italic;color:rgba(224,224,224,.3)">yang nyata,</em><br>keberanian yang luar biasa.</h1>
+        <button class="btn btn-outline" onclick="showPage('submit-story')" id="stor-share-btn">+ Bagikan Ceritamu</button>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <div class="stories-grid" id="stories-grid"></div>
+  <div style="padding:3rem 2rem;text-align:center">
+    <button class="btn btn-ghost" onclick="showPage('submit-story')" id="stor-submit-cta">Ceritamu penting. Bagikan di sini →</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     SUBMIT STORY PAGE
+     ============================================================ -->
+<div id="page-submit-story" class="page">
+  <section class="submit-hero">
+    <div class="container-narrow">
+      <div class="section-index" style="margin-bottom:1.25rem">Bagikan / Share Your Story</div>
+      <h1 class="display-md" style="margin-bottom:1rem" id="sub-title">Kamu Tidak Harus Menceritakan Semuanya.</h1>
+      <p class="body-lg" style="color:rgba(224,224,224,.35);margin-bottom:3rem;max-width:480px" id="sub-sub">Bagikan sebanyak yang kamu mau. Ruang ini aman, termoderasi, dan selalu menghormatimu.</p>
+
+      <div class="trauma-notice">
+        <p id="trauma-text"><strong>Catatan keamanan:</strong> Ceritamu akan ditinjau oleh tim kami sebelum dipublikasikan. Kamu bisa tetap anonim. Tidak ada informasi identitasmu yang akan dibagikan tanpa izin. Jika kamu sedang dalam krisis, hubungi SAPA 1800-111-120.</p>
+      </div>
+
+      <div class="form-card" style="max-width:100%">
+        <div id="sub-login-prompt" style="display:none;text-align:center;padding:1rem 0">
+          <p style="font-size:.875rem;color:rgba(224,224,224,.35);margin-bottom:1rem" id="sub-login-text">Masuk atau daftar untuk berbagi cerita.</p>
+          <button class="btn btn-teal" onclick="showPage('auth')" id="sub-login-btn">Masuk / Daftar</button>
+        </div>
+        <div id="sub-form-inner">
+          <div id="sub-success" class="success-msg">
+            <h3 id="sub-s-title">Terima kasih telah berbagi.</h3>
+            <p id="sub-s-body">Ceritamu sedang dalam proses tinjauan dan akan segera dipublikasikan setelah disetujui.</p>
+          </div>
+          <div id="sub-form">
+            <div class="form-group"><label id="sub-l-name">Namamu (opsional — kosongkan untuk anonim)</label><input type="text" id="sub-name" placeholder="Atau biarkan kosong untuk anonim"></div>
+            <div class="form-group"><label id="sub-l-title">Judul Cerita *</label><input type="text" id="sub-stitle" placeholder="Beri judul yang mewakili ceritamu"></div>
+            <div class="form-group"><label id="sub-l-body">Ceritamu *</label><textarea id="sub-body" placeholder="Kamu bisa mulai dari mana saja..." style="min-height:220px"></textarea></div>
+            <div class="form-group"><label id="sub-l-tw">Peringatan Konten (jika ada)</label><input type="text" id="sub-tw" placeholder="contoh: kekerasan, trauma (opsional)"></div>
+            <div class="form-group"><label id="sub-l-lang">Bahasa Cerita</label><select id="sub-lang"><option value="id">Bahasa Indonesia</option><option value="en">English</option></select></div>
+            <div class="checkbox-wrap"><input type="checkbox" id="sub-consent"><label for="sub-consent" id="sub-l-consent">Saya menyetujui cerita ini ditayangkan di ProofSpeak setelah melalui proses moderasi, dengan pemahaman penuh bahwa identitas saya dilindungi.</label></div>
+            <button class="btn btn-primary btn-full" onclick="submitStory()" id="sub-submit-btn">Kirim Cerita</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     NECKLACE PAGE
+     ============================================================ -->
+<div id="page-necklace" class="page">
+  <section class="necklace-hero">
+    <div class="container">
+      <div class="section-index" style="margin-bottom:1.25rem">Kalung / Necklace</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem">
+        <div>
+          <h1 class="display-lg" id="neck-title">Kenakan Solidaritas.</h1>
+          <p class="body-lg" style="color:rgba(224,224,224,.3);margin-top:.75rem;max-width:480px" id="neck-sub">Setiap kalung dibuat tangan. 10% hasil penjualan mendanai layanan pendampingan penyintas.</p>
+        </div>
+      </div>
+
+      <div class="necklace-grid">
+        <div class="necklace-card" onclick="selectNecklace(this,'Hope Circle','Rp 185.000','Lingkaran harapan — simbol keutuhan jiwa yang diperjuangkan.')">
+          <div class="necklace-img">○</div>
+          <div class="necklace-body">
+            <div class="necklace-name">Hope Circle</div>
+            <div class="necklace-desc">Lingkaran harapan — simbol keutuhan jiwa yang diperjuangkan.</div>
+            <div class="necklace-price">Rp 185.000</div>
+          </div>
+        </div>
+        <div class="necklace-card" onclick="selectNecklace(this,'Brave Heart','Rp 220.000','Hati pemberani — &quot;I Believe You&quot; terukir di baliknya.')">
+          <div class="necklace-img">◇</div>
+          <div class="necklace-body">
+            <div class="necklace-name">Brave Heart</div>
+            <div class="necklace-desc">Hati pemberani — "I Believe You" terukir di baliknya.</div>
+            <div class="necklace-price">Rp 220.000</div>
+          </div>
+        </div>
+        <div class="necklace-card" onclick="selectNecklace(this,'Survivor Lotus','Rp 250.000','Teratai penyintas — tumbuh dari lumpur menjadi cahaya.')">
+          <div class="necklace-img">✦</div>
+          <div class="necklace-body">
+            <div class="necklace-name">Survivor Lotus</div>
+            <div class="necklace-desc">Teratai penyintas — tumbuh dari lumpur menjadi cahaya.</div>
+            <div class="necklace-price">Rp 250.000</div>
+          </div>
+        </div>
+        <div class="necklace-card" onclick="selectNecklace(this,'Together Band','Rp 310.000','Sepasang gelang — satu untukmu, satu untuk orang yang kamu cintai.')">
+          <div class="necklace-img">◯◯</div>
+          <div class="necklace-body">
+            <div class="necklace-name">Together Band</div>
+            <div class="necklace-desc">Sepasang gelang — satu untukmu, satu untuk seseorang yang kamu sayangi.</div>
+            <div class="necklace-price">Rp 310.000</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card" style="margin-top:3rem;max-width:100%">
+        <div id="ord-success" class="success-msg">
+          <h3 id="ord-s-title">Pesananmu diterima.</h3>
+          <p id="ord-s-body">Kami akan mengonfirmasi via WhatsApp atau email dalam 1–2 hari kerja. Terima kasih telah mendukung gerakan ini.</p>
+        </div>
+        <div id="ord-form">
+          <h2 style="font-family:var(--font-display);font-size:1.5rem;font-weight:300;margin-bottom:2rem" id="ord-form-title">Formulir Pemesanan</h2>
+          <div class="form-group"><label id="ord-l-item">Item yang Dipilih</label><input type="text" id="ord-item" placeholder="Klik kalung di atas untuk memilih" readonly style="cursor:default;color:var(--lime)"></div>
+          <div class="form-row">
+            <div class="form-group"><label id="ord-l-name">Nama Lengkap *</label><input type="text" id="ord-name" placeholder="Nama lengkap"></div>
+            <div class="form-group"><label id="ord-l-phone">WhatsApp *</label><input type="text" id="ord-phone" placeholder="+62..."></div>
+          </div>
+          <div class="form-group"><label id="ord-l-email">Email</label><input type="email" id="ord-email" placeholder="email@kamu.com"></div>
+          <div class="form-group"><label id="ord-l-addr">Alamat Pengiriman *</label><textarea id="ord-addr" placeholder="Alamat lengkap termasuk kota dan kode pos" style="min-height:80px"></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label id="ord-l-qty">Jumlah</label><input type="number" id="ord-qty" value="1" min="1" max="10"></div>
+            <div class="form-group"><label id="ord-l-color">Pilihan Warna</label><select id="ord-color"><option>Silver</option><option>Rose Gold</option><option>Gold</option></select></div>
+          </div>
+          <div class="form-group"><label id="ord-l-pay">Metode Pembayaran</label><select id="ord-pay"><option>Transfer Bank (BCA / BNI / Mandiri)</option><option>GoPay / OVO / Dana</option><option>QRIS</option><option>COD (Jabodetabek)</option></select></div>
+          <div class="form-group"><label id="ord-l-msg">Pesan untuk Packaging (opsional)</label><input type="text" id="ord-msg" placeholder="contoh: Untuk kakakku, dengan cinta"></div>
+          <button class="btn btn-primary btn-full" onclick="submitOrder()" id="ord-submit-btn">Pesan Sekarang</button>
+          <p class="form-note" style="text-align:center;margin-top:.75rem" id="ord-note">10% dari setiap pembelian mendukung layanan pendampingan penyintas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     CONTACT PAGE
+     ============================================================ -->
+<div id="page-contact" class="page">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-index" style="margin-bottom:1.25rem">Kontak / Contact</div>
+        <h2 id="cont-title">Mari Bergerak Bersama.</h2>
+        <p id="cont-body">Untuk kolaborasi, media, pendampingan, atau sekadar ingin bicara — kami di sini. Tidak ada pertanyaan yang terlalu kecil.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-item"><span>Email</span><a href="mailto:halo@proofspeak.id">halo@proofspeak.id</a></div>
+          <div class="contact-detail-item"><span>WhatsApp</span><a href="https://wa.me/62">+62 (Campaign WhatsApp)</a></div>
+          <div class="contact-detail-item"><span>Instagram</span><a href="#">@proofspeak.id</a></div>
+          <div class="contact-detail-item"><span>Domain</span><p>proofspeak.id</p></div>
+          <div class="contact-detail-item"><span>Krisis — Butuh bantuan sekarang?</span><a href="tel:1800111120">SAPA 1800-111-120 (Gratis, 24/7)</a></div>
+        </div>
+      </div>
+      <div>
+        <div class="form-card" style="margin:0">
+          <div id="cont-success" class="success-msg">
+            <h3 id="cont-s-title">Pesan terkirim.</h3>
+            <p id="cont-s-body">Kami akan menghubungimu dalam 1–3 hari kerja.</p>
+          </div>
+          <div id="cont-form">
+            <div class="form-group"><label id="cont-l-name">Nama</label><input type="text" id="cont-name" placeholder="Namamu"></div>
+            <div class="form-group"><label id="cont-l-email">Email *</label><input type="email" id="cont-email" placeholder="email@kamu.com"></div>
+            <div class="form-group"><label id="cont-l-subj">Subjek</label><select id="cont-subj"><option>Kolaborasi</option><option>Media / Press</option><option>Donasi</option><option>Pertanyaan umum</option><option>Lainnya</option></select></div>
+            <div class="form-group"><label id="cont-l-msg">Pesan *</label><textarea id="cont-msg" placeholder="Ceritakan apa yang ingin kamu sampaikan..."></textarea></div>
+            <button class="btn btn-primary btn-full" onclick="submitContact()" id="cont-submit-btn">Kirim Pesan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     AUTH PAGE
+     ============================================================ -->
+<div id="page-auth" class="page">
+  <div class="auth-wrap">
+    <div class="auth-logo">ProofSpeak</div>
+    <div class="auth-sub" id="auth-sub">Masuk atau daftar untuk berpartisipasi</div>
+    <div class="role-tabs">
+      <button class="role-tab active" onclick="setAuthRole('reader',this)" id="rtab-reader">Pembaca / Penyintas</button>
+      <button class="role-tab" onclick="setAuthRole('admin',this)" id="rtab-admin">Admin</button>
+    </div>
+    <div class="error-msg" id="auth-err"></div>
+    <div class="auth-hint" id="auth-hint">Pembaca dapat mengirim cerita, menandatangani petisi, dan melacak pesanan.</div>
+    <div class="form-group" id="reg-name-wrap" style="display:none"><label>Nama Lengkap</label><input type="text" id="reg-name" placeholder="Nama lengkapmu"></div>
+    <div class="form-group"><label id="auth-l-email">Email</label><input type="email" id="auth-email" placeholder="email@kamu.com"></div>
+    <div class="form-group"><label id="auth-l-pass">Password</label><input type="password" id="auth-pass" placeholder="Password" onkeydown="if(event.key==='Enter')doAuth()"></div>
+    <div class="form-group" id="reg-confirm-wrap" style="display:none"><label>Konfirmasi Password</label><input type="password" id="reg-confirm" placeholder="Ulangi password"></div>
+    <button class="btn btn-teal btn-full" onclick="doAuth()" id="auth-btn" style="margin-bottom:.75rem">Masuk</button>
+    <div class="auth-divider" id="auth-divider"><span>atau</span></div>
+    <div class="auth-switch" id="auth-switch-wrap">Belum punya akun? <button onclick="toggleAuthMode()" id="auth-switch-btn">Daftar di sini</button></div>
+    <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.72rem;color:rgba(224,224,224,.2);text-align:center;line-height:1.6">
+      Demo — Admin: admin@proofspeak.id / admin123<br>Pembaca: siti@proofspeak.id / reader123
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     ADMIN DASHBOARD
+     ============================================================ -->
+<div id="page-admin" class="page">
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div class="sidebar-label">Overview</div>
+      <button class="sidebar-btn active" onclick="showAdminPanel('dash',this)">Dashboard</button>
+      <div class="sidebar-label">Konten</div>
+      <button class="sidebar-btn" onclick="showAdminPanel('a-stories',this)">Cerita</button>
+      <button class="sidebar-btn" onclick="showAdminPanel('a-petitions',this)">Petisi</button>
+      <button class="sidebar-btn" onclick="showAdminPanel('a-orders',this)">Pesanan</button>
+      <button class="sidebar-btn" onclick="showAdminPanel('a-users',this)">Pengguna</button>
+      <div class="sidebar-label">Pengaturan</div>
+      <button class="sidebar-btn" onclick="showAdminPanel('a-settings',this)">Pengaturan Situs</button>
+      <button class="sidebar-btn danger" onclick="logout()">Keluar</button>
+    </div>
+    <div class="admin-main">
+      <div class="admin-panel active" id="panel-dash">
+        <div class="admin-title">Dashboard</div>
+        <div class="admin-metrics" id="adm-metrics"></div>
+        <div style="font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(224,224,224,.25);margin-bottom:1rem">Menunggu Tinjauan</div>
+        <div id="adm-pending"></div>
+      </div>
+      <div class="admin-panel" id="panel-a-stories">
+        <div class="admin-title">Kelola Cerita</div>
+        <div class="tbl-wrap"><table class="tbl" id="tbl-stories"></table></div>
+      </div>
+      <div class="admin-panel" id="panel-a-petitions">
+        <div class="admin-title">Tanda Tangan Petisi</div>
+        <div class="tbl-wrap"><table class="tbl" id="tbl-petitions"></table></div>
+      </div>
+      <div class="admin-panel" id="panel-a-orders">
+        <div class="admin-title">Kelola Pesanan</div>
+        <div class="tbl-wrap"><table class="tbl" id="tbl-orders"></table></div>
+      </div>
+      <div class="admin-panel" id="panel-a-users">
+        <div class="admin-title">Pengguna Terdaftar</div>
+        <div class="tbl-wrap"><table class="tbl" id="tbl-users"></table></div>
+      </div>
+      <div class="admin-panel" id="panel-a-settings">
+        <div class="admin-title">Pengaturan Situs</div>
+        <div class="form-card" style="max-width:560px;margin:0">
+          <div class="form-group"><label>Judul Kampanye</label><input type="text" id="set-title" value="ProofSpeak — Suaramu, Buktimu"></div>
+          <div class="form-group"><label>Target Petisi</label><input type="number" id="set-goal" value="10000"></div>
+          <div class="form-group"><label>Password Admin Baru</label><input type="password" id="set-pass" placeholder="Kosongkan jika tidak ingin mengubah"></div>
+          <div class="form-group"><label>Email Kontak</label><input type="text" id="set-email" value="halo@proofspeak.id"></div>
+          <div class="form-group"><label>WhatsApp Campaign</label><input type="text" id="set-wa" value="+62 812-0000-0000"></div>
+          <button class="btn btn-teal" onclick="saveSettings()" style="padding:.8rem 2rem">Simpan Pengaturan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     READER PORTAL
+     ============================================================ -->
+<div id="page-reader" class="page">
+  <div class="reader-layout">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:2rem">
+      <div>
+        <div class="section-index" style="margin-bottom:.5rem">Portal Saya / My Portal</div>
+        <h1 style="font-family:var(--font-display);font-size:2.2rem;font-weight:300" id="reader-greeting">Selamat datang.</h1>
+      </div>
+    </div>
+    <div class="reader-tabs">
+      <button class="reader-tab active" onclick="showReaderPanel('r-stories',this)">Ceritaku</button>
+      <button class="reader-tab" onclick="showReaderPanel('r-petitions',this)">Tanda Tanganku</button>
+      <button class="reader-tab" onclick="showReaderPanel('r-orders',this)">Pesananku</button>
+      <button class="reader-tab" onclick="showReaderPanel('r-account',this)">Akun</button>
+    </div>
+    <div class="reader-panel active" id="rpanel-r-stories">
+      <div id="r-stories-list"></div>
+      <div style="margin-top:1.5rem"><button class="btn btn-teal" onclick="showPage('submit-story')">+ Kirim Cerita Baru</button></div>
+    </div>
+    <div class="reader-panel" id="rpanel-r-petitions">
+      <div id="r-pet-list"></div>
+    </div>
+    <div class="reader-panel" id="rpanel-r-orders">
+      <div id="r-orders-list"></div>
+      <div style="margin-top:1.5rem"><button class="btn btn-teal" onclick="showPage('necklace')">Pesan Kalung</button></div>
+    </div>
+    <div class="reader-panel" id="rpanel-r-account">
+      <div class="form-card" style="max-width:480px;margin:0;background:var(--dark-surface)">
+        <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:300;margin-bottom:1.5rem">Pengaturan Akun</div>
+        <div class="form-group"><label>Nama Lengkap</label><input type="text" id="acc-name"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="acc-email" readonly style="opacity:.35;cursor:default"></div>
+        <div class="form-group"><label>Password Baru</label><input type="password" id="acc-pass" placeholder="Kosongkan jika tidak ingin mengubah"></div>
+        <button class="btn btn-teal" onclick="saveAccount()" style="padding:.8rem 2rem">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STORY MODAL -->
+<div class="modal-backdrop" id="story-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">ProofSpeak ·</div>
+      <div class="footer-tagline">Platform kampanye kesadaran kekerasan seksual. Untuk penyintas, oleh komunitas, demi perubahan.</div>
+      <div style="font-size:.68rem;letter-spacing:.06em;color:rgba(224,224,224,.15)">proofspeak.id</div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigasi</h4>
+      <button onclick="showPage('home')">Beranda</button>
+      <button onclick="showPage('about')">Tentang Kami</button>
+      <button onclick="showPage('campaign')">Kampanye</button>
+      <button onclick="showPage('petition')">Petisi</button>
+    </div>
+    <div class="footer-col">
+      <h4>Cerita & Produk</h4>
+      <button onclick="showPage('stories')">Cerita Penyintas</button>
+      <button onclick="showPage('submit-story')">Bagikan Cerita</button>
+      <button onclick="showPage('necklace')">Kalung Solidaritas</button>
+    </div>
+    <div class="footer-col">
+      <h4>Bantuan</h4>
+      <a href="mailto:halo@proofspeak.id">halo@proofspeak.id</a>
+      <a href="tel:1800111120">SAPA 1800-111-120</a>
+      <button onclick="showPage('contact')">Kontak</button>
+      <button onclick="showPage('auth')">Masuk / Daftar</button>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 ProofSpeak. Hak cipta dilindungi.</span>
+    <span>Dibuat dengan keberanian, untuk para penyintas.</span>
+  </div>
+</footer>
+
+<script>
+/* ================================================================
+   PROOFSPEAK — APPLICATION LOGIC
+   ================================================================ */
+
+/* --- DATA STORE --- */
+const DB = {
+  settings: {goal:10000, adminPass:'admin123', email:'halo@proofspeak.id', wa:'+62 812-0000-0000'},
+  users: [
+    {id:1, name:'Admin', email:'admin@proofspeak.id', password:'admin123', role:'admin', joined:'2025-01-01'},
+    {id:2, name:'Siti Rahayu', email:'siti@proofspeak.id', password:'reader123', role:'reader', joined:'2025-04-10'},
+  ],
+  signatures: [
+    {id:1, fname:'Siti', lname:'Rahayu', email:'siti@proofspeak.id', location:'Jakarta', comment:'Sudah terlalu lama diam.', anon:false, date:'2025-05-01', lang:'id', userId:2},
+    {id:2, fname:'Anonim', lname:'', email:'', location:'Bandung', comment:'', anon:true, date:'2025-05-02', lang:'id', userId:null},
+    {id:3, fname:'Maya', lname:'Putri', email:'maya@email.com', location:'Surabaya', comment:'Untuk semua penyintas di luar sana.', anon:false, date:'2025-05-03', lang:'id', userId:null},
+  ],
+  stories: [
+    {id:1, userId:2, name:'Siti Rahayu', title:'Menemukan Suaraku', body:'Bertahun-tahun aku diam. Bukan karena tidak mau bercerita — tetapi karena tidak tahu apakah ada yang mau mendengar. ProofSpeak memberi aku keberanian untuk pertama kalinya berkata: ini terjadi padaku, dan itu bukan salahku.\n\nPulih bukan berarti melupakan. Aku masih memiliki hari-hari yang berat. Tapi setiap kali aku membaca cerita penyintas lain di sini, aku tahu aku tidak sendiri.', trigger:'trauma', status:'approved', date:'2025-05-01', lang:'id'},
+    {id:2, userId:null, name:'Anonim', title:'Pemulihan Bukan Garis Lurus', body:'Ada hari-hari ketika aku merasa sudah sembuh. Lalu ada hari ketika semuanya terasa seperti baru saja terjadi. Aku belajar bahwa itu normal.\n\nYang paling menyembuhkan bukan terapi atau obat-obatan — melainkan seseorang yang pertama kali berkata, "Aku percaya kamu." Tiga kata itu mengubah segalanya.', trigger:'', status:'pending', date:'2025-05-04', lang:'id'},
+  ],
+  orders: [
+    {id:1, userId:2, item:'Hope Circle — Rp 185.000', name:'Siti Rahayu', phone:'+62 811-111-1111', email:'siti@proofspeak.id', address:'Jl. Merdeka No.1, Jakarta 10110', qty:1, color:'Silver', payment:'GoPay / OVO / Dana', status:'Processing', date:'2025-05-02'},
+  ]
+};
+
+let currentUser = null;
+let authRole = 'reader';
+let isRegister = false;
+let currentLang = 'id';
+
+/* --- TRANSLATIONS --- */
+const T = {
+  id: {
+    signIn:'Masuk', register:'Daftar', signOut:'Keluar',
+    adminPanel:'Panel Admin', myPortal:'Portal Saya',
+    pending:'Menunggu', approved:'Disetujui', rejected:'Ditolak',
+    reader:'Pembaca', admin:'Admin',
+    noData:'Belum ada data.',
+    recentSig:'Tanda Tangan Terbaru',
+    approved_s:'Disetujui', pending_s:'Menunggu',
+    hintReader:'Pembaca dapat mengirim cerita, menandatangani petisi, dan melacak pesanan.',
+    hintAdmin:'Admin dapat mengelola cerita, petisi, pesanan, dan pengaturan situs.',
+    switchToReg:'Belum punya akun? Daftar di sini',
+    switchToLogin:'Sudah punya akun? Masuk di sini',
+    dontHaveAccount:'Belum punya akun?', registerHere:'Daftar di sini',
+    alreadyHave:'Sudah punya akun?', loginHere:'Masuk di sini',
+  },
+  en: {
+    signIn:'Sign In', register:'Register', signOut:'Sign Out',
+    adminPanel:'Admin Panel', myPortal:'My Portal',
+    pending:'Pending', approved:'Approved', rejected:'Rejected',
+    reader:'Reader', admin:'Admin',
+    noData:'No data yet.',
+    recentSig:'Recent Signatures',
+    approved_s:'Approved', pending_s:'Pending',
+    hintReader:'Readers can submit stories, sign petitions, and track their orders.',
+    hintAdmin:'Admins can manage stories, petitions, orders, and site settings.',
+    switchToReg:"Don't have an account? Register here",
+    switchToLogin:'Already have an account? Sign in here',
+    dontHaveAccount:"Don't have an account?", registerHere:'Register here',
+    alreadyHave:'Already have an account?', loginHere:'Sign in here',
+  }
+};
+
+function t(key) { return (T[currentLang] && T[currentLang][key]) || key; }
+
+/* --- LANGUAGE --- */
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.getElementById('lang-id').classList.toggle('active', lang==='id');
+  document.getElementById('lang-en').classList.toggle('active', lang==='en');
+  applyLangContent();
+}
+
+function applyLangContent() {
+  const id = currentLang === 'id';
+  // Hero
+  const hl1 = document.getElementById('h-line1'); if(hl1) hl1.textContent = id ? 'Suara' : 'Voice';
+  const hl2 = document.getElementById('h-line2'); if(hl2) hl2.textContent = id ? 'adalah' : 'is';
+  const hl3 = document.getElementById('h-line3'); if(hl3) hl3.textContent = id ? 'Bukti.' : 'Proof.';
+  const hl = document.getElementById('h-label'); if(hl) hl.textContent = id ? 'Kampanye Kesadaran Kekerasan Seksual' : 'Sexual Assault Awareness Campaign';
+  const hd = document.getElementById('h-desc'); if(hd) hd.textContent = id ? 'Untuk semua penyintas yang lama diam. Proofspeak adalah ruang untuk bersuara, bersaksi, dan bergerak bersama.' : 'For every survivor who has long stayed silent. ProofSpeak is a space to speak, witness, and act together.';
+  const hb1 = document.getElementById('h-btn1'); if(hb1) hb1.textContent = id ? 'Tanda Tangan Petisi' : 'Sign the Petition';
+  const hb2 = document.getElementById('h-btn2'); if(hb2) hb2.textContent = id ? 'Bagikan Ceritamu' : 'Share Your Story';
+  // Stats
+  const sl = document.getElementById('s-sigs-label'); if(sl) sl.textContent = id ? 'Tanda Tangan Petisi' : 'Petition Signatures';
+  const stl = document.getElementById('s-stories-label'); if(stl) stl.textContent = id ? 'Cerita Dipublikasikan' : 'Stories Published';
+  const sol = document.getElementById('s-orders-label'); if(sol) sol.textContent = id ? 'Kalung Dipesan' : 'Necklaces Ordered';
+  // Auth
+  const ah = document.getElementById('auth-hint'); if(ah) ah.textContent = authRole === 'admin' ? t('hintAdmin') : t('hintReader');
+  const asw = document.getElementById('auth-switch-wrap');
+  if(asw && !isRegister) asw.innerHTML = `${t('dontHaveAccount')} <button onclick="toggleAuthMode()" id="auth-switch-btn">${t('registerHere')}</button>`;
+  else if(asw) asw.innerHTML = `${t('alreadyHave')} <button onclick="toggleAuthMode()" id="auth-switch-btn">${t('loginHere')}</button>`;
+  updateNavAuth();
+}
+
+/* --- NAVIGATION --- */
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.nav-links button[id^="nav-"]').forEach(x => x.classList.remove('active-nav'));
+  const pg = document.getElementById('page-'+p);
+  if (pg) pg.classList.add('active');
+  const nb = document.getElementById('nav-'+p);
+  if (nb) nb.classList.add('active-nav');
+  window.scrollTo({top:0, behavior:'smooth'});
+
+  if (p === 'home') updateHomeStats();
+  if (p === 'petition') renderPetition();
+  if (p === 'stories') renderStories();
+  if (p === 'submit-story') renderSubmitStory();
+  if (p === 'auth') resetAuthPage();
+  if (p === 'admin') {
+    if (!currentUser || currentUser.role !== 'admin') { showPage('auth'); return; }
+    renderAdminDashboard();
+  }
+}
+
+/* --- HOME STATS --- */
+function updateHomeStats() {
+  document.getElementById('s-sigs').textContent = DB.signatures.length;
+  document.getElementById('s-stories').textContent = DB.stories.filter(s=>s.status==='approved').length;
+  document.getElementById('s-orders').textContent = DB.orders.length;
+}
+
+/* --- AUTH --- */
+function setAuthRole(role, btn) {
+  authRole = role;
+  document.querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const hint = document.getElementById('auth-hint');
+  if (hint) hint.textContent = role === 'admin' ? t('hintAdmin') : t('hintReader');
+  const div = document.getElementById('auth-divider');
+  const sw = document.getElementById('auth-switch-wrap');
+  if (role === 'admin') {
+    if(div) div.style.display='none';
+    if(sw) sw.style.display='none';
+    if(isRegister) toggleAuthMode();
+  } else {
+    if(div) div.style.display='flex';
+    if(sw) sw.style.display='block';
+  }
+}
+
+function toggleAuthMode() {
+  isRegister = !isRegister;
+  const btn = document.getElementById('auth-btn');
+  if(btn) btn.textContent = isRegister ? t('register') : t('signIn');
+  const sw = document.getElementById('auth-switch-wrap');
+  if(sw) sw.innerHTML = isRegister
+    ? `${t('alreadyHave')} <button onclick="toggleAuthMode()">${t('loginHere')}</button>`
+    : `${t('dontHaveAccount')} <button onclick="toggleAuthMode()">${t('registerHere')}</button>`;
+  const nw = document.getElementById('reg-name-wrap');
+  const cw = document.getElementById('reg-confirm-wrap');
+  if(nw) nw.style.display = isRegister?'block':'none';
+  if(cw) cw.style.display = isRegister?'block':'none';
+  const err = document.getElementById('auth-err');
+  if(err) err.classList.remove('show');
+}
+
+function resetAuthPage() {
+  isRegister = false; authRole = 'reader';
+  const btn = document.getElementById('auth-btn'); if(btn) btn.textContent = t('signIn');
+  const rtab = document.getElementById('rtab-reader'); if(rtab) rtab.click();
+  const nw = document.getElementById('reg-name-wrap'); if(nw) nw.style.display='none';
+  const cw = document.getElementById('reg-confirm-wrap'); if(cw) cw.style.display='none';
+  const div = document.getElementById('auth-divider'); if(div) div.style.display='flex';
+  const sw = document.getElementById('auth-switch-wrap'); if(sw) sw.style.display='block';
+  if(sw) sw.innerHTML = `${t('dontHaveAccount')} <button onclick="toggleAuthMode()">${t('registerHere')}</button>`;
+  const err = document.getElementById('auth-err'); if(err) err.classList.remove('show');
+  const ae = document.getElementById('auth-email'); if(ae) ae.value='';
+  const ap = document.getElementById('auth-pass'); if(ap) ap.value='';
+}
+
+function doAuth() {
+  const email = document.getElementById('auth-email').value.trim();
+  const pass = document.getElementById('auth-pass').value;
+  const errEl = document.getElementById('auth-err');
+  errEl.classList.remove('show');
+  if (!email || !pass) { errEl.textContent = currentLang==='id'?'Masukkan email dan password.':'Please enter email and password.'; errEl.classList.add('show'); return; }
+
+  if (isRegister) {
+    const name = document.getElementById('reg-name').value.trim();
+    const confirm = document.getElementById('reg-confirm').value;
+    if (!name) { errEl.textContent = currentLang==='id'?'Masukkan nama lengkapmu.':'Please enter your full name.'; errEl.classList.add('show'); return; }
+    if (pass !== confirm) { errEl.textContent = currentLang==='id'?'Password tidak cocok.':'Passwords do not match.'; errEl.classList.add('show'); return; }
+    if (DB.users.find(u=>u.email===email)) { errEl.textContent = currentLang==='id'?'Email sudah terdaftar.':'Email already registered.'; errEl.classList.add('show'); return; }
+    const nu = {id:Date.now(), name, email, password:pass, role:'reader', joined:new Date().toISOString().split('T')[0]};
+    DB.users.push(nu);
+    currentUser = nu;
+    updateNavAuth();
+    openReaderPortal();
+    return;
+  }
+
+  const user = DB.users.find(u=>u.email===email && u.password===pass);
+  if (!user) { errEl.textContent = currentLang==='id'?'Email atau password salah.':'Incorrect email or password.'; errEl.classList.add('show'); return; }
+  if (authRole === 'admin' && user.role !== 'admin') { errEl.textContent = currentLang==='id'?'Akun ini tidak memiliki akses admin.':'This account does not have admin access.'; errEl.classList.add('show'); return; }
+  currentUser = user;
+  updateNavAuth();
+  if (user.role === 'admin') showPage('admin');
+  else openReaderPortal();
+}
+
+function logout() { currentUser = null; updateNavAuth(); showPage('home'); }
+
+function updateNavAuth() {
+  const area = document.getElementById('nav-user-area');
+  if (!currentUser) {
+    area.innerHTML = `<button class="btn btn-outline btn-sm" onclick="showPage('auth')">${t('signIn')}</button>`;
+  } else {
+    const initials = currentUser.name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+    const portal = currentUser.role==='admin'
+      ? `<button class="btn btn-ghost btn-sm" onclick="showPage('admin')">${t('adminPanel')}</button>`
+      : `<button class="btn btn-ghost btn-sm" onclick="openReaderPortal()">${t('myPortal')}</button>`;
+    area.innerHTML = `<div class="user-pill">${initials}</div>${portal}<button class="btn btn-ghost btn-sm" onclick="logout()">${t('signOut')}</button>`;
+  }
+}
+
+/* --- PETITION --- */
+function renderPetition() {
+  const count = DB.signatures.length;
+  const goal = DB.settings.goal;
+  const pct = Math.min((count/goal)*100,100);
+  const prog = document.getElementById('pet-prog'); if(prog) prog.style.width = pct+'%';
+  const cnt = document.getElementById('pet-count'); if(cnt) cnt.textContent = count.toLocaleString();
+
+  if (currentUser) {
+    const parts = currentUser.name.split(' ');
+    const fn = document.getElementById('pf-fn'); if(fn) fn.value=parts[0]||'';
+    const ln = document.getElementById('pf-ln'); if(ln) ln.value=parts.slice(1).join(' ')||'';
+    const em = document.getElementById('pf-em'); if(em) em.value=currentUser.email;
+  }
+
+  const recent = [...DB.signatures].reverse().slice(0,6);
+  const list = document.getElementById('signers-list');
+  if (!list) return;
+  let html = `<div style="font-family:var(--font-display);font-size:1.4rem;font-weight:300;color:var(--gray);margin-bottom:1.5rem">${currentLang==='id'?'Tanda Tangan Terbaru':'Recent Signatures'}</div>`;
+  recent.forEach(s => {
+    const name = s.anon ? (currentLang==='id'?'Anonim':'Anonymous') : (s.fname+' '+s.lname).trim();
+    const init = (name[0]||'A').toUpperCase();
+    html += `<div class="signer-row">
+      <div class="signer-icon" style="font-family:var(--font-display);font-size:1rem;color:var(--teal)">${init}</div>
+      <div class="signer-info">
+        <p>${name}</p>
+        <span>${s.location||'Indonesia'} · ${s.date}${s.comment?` · "${s.comment}"`:''}  </span>
+      </div>
+    </div>`;
+  });
+  list.innerHTML = html;
+}
+
+function submitPetition() {
+  const fn = document.getElementById('pf-fn').value.trim();
+  const em = document.getElementById('pf-em').value.trim();
+  if(!fn||!em) { alert(currentLang==='id'?'Nama dan email wajib diisi.':'Name and email are required.'); return; }
+  const anon = document.getElementById('pf-anon').checked;
+  DB.signatures.push({
+    id:Date.now(), fname:anon?(currentLang==='id'?'Anonim':'Anonymous'):fn,
+    lname:document.getElementById('pf-ln').value.trim(), email:em,
+    location:document.getElementById('pf-loc').value.trim(),
+    comment:document.getElementById('pf-com').value.trim(),
+    anon, date:new Date().toISOString().split('T')[0],
+    lang:currentLang, userId:currentUser?currentUser.id:null
+  });
+  document.getElementById('pet-form').style.display='none';
+  document.getElementById('pet-success').classList.add('show');
+  renderPetition();
+}
+
+/* --- STORIES --- */
+function renderStories() {
+  const approved = DB.stories.filter(s=>s.status==='approved');
+  const grid = document.getElementById('stories-grid');
+  if (!grid) return;
+  if (!approved.length) {
+    grid.innerHTML = `<div style="padding:4rem 2rem;color:rgba(224,224,224,.2);font-size:.875rem">${currentLang==='id'?'Belum ada cerita yang dipublikasikan.':'No stories published yet.'}</div>`;
+    return;
+  }
+  grid.innerHTML = approved.map(s=>`
+    <div class="story-card" onclick="openStory(${s.id})">
+      ${s.trigger ? `<div class="tag tag-teal" style="font-size:.6rem">TW: ${s.trigger}</div>` : '<div class="tag" style="font-size:.6rem">Kisah Penyintas</div>'}
+      <div class="story-card-title">${s.title}</div>
+      <div class="story-card-excerpt">${s.body.substring(0,180).replace(/\n/g,' ')}...</div>
+      <div class="story-card-meta">
+        <span class="story-card-author">${s.name}</span>
+        <span class="story-card-tag">${s.date}</span>
+      </div>
+    </div>`).join('');
+}
+
+function openStory(id) {
+  const s = DB.stories.find(x=>x.id===id); if(!s) return;
+  document.getElementById('modal-content').innerHTML=`
+    <div class="modal-tag">${s.trigger?'TW: '+s.trigger:(currentLang==='id'?'Kisah Penyintas':'Survivor Story')}</div>
+    <div class="modal-title">${s.title}</div>
+    <div class="modal-meta">${s.name} · ${s.date}</div>
+    <div class="modal-body">${s.body.replace(/\n/g,'<br><br>')}</div>`;
+  document.getElementById('story-modal').classList.add('open');
+}
+function closeModal() { document.getElementById('story-modal').classList.remove('open'); }
+document.getElementById('story-modal').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
+
+/* --- SUBMIT STORY --- */
+function renderSubmitStory() {
+  const lp = document.getElementById('sub-login-prompt');
+  const fi = document.getElementById('sub-form');
+  if (!currentUser) { if(lp) lp.style.display='block'; if(fi) fi.style.display='none'; }
+  else { if(lp) lp.style.display='none'; if(fi) fi.style.display='block'; }
+}
+
+function submitStory() {
+  const title = document.getElementById('sub-stitle').value.trim();
+  const body = document.getElementById('sub-body').value.trim();
+  const consent = document.getElementById('sub-consent').checked;
+  if(!title||!body) { alert(currentLang==='id'?'Judul dan cerita wajib diisi.':'Title and story are required.'); return; }
+  if(!consent) { alert(currentLang==='id'?'Mohon berikan persetujuan terlebih dahulu.':'Please give consent first.'); return; }
+  DB.stories.push({
+    id:Date.now(), userId:currentUser?currentUser.id:null,
+    name:document.getElementById('sub-name').value.trim()||(currentUser?currentUser.name:(currentLang==='id'?'Anonim':'Anonymous')),
+    title, body, trigger:document.getElementById('sub-tw').value.trim(),
+    status:'pending', date:new Date().toISOString().split('T')[0],
+    lang:document.getElementById('sub-lang').value
+  });
+  document.getElementById('sub-form').style.display='none';
+  document.getElementById('sub-success').classList.add('show');
+}
+
+/* --- NECKLACE --- */
+function selectNecklace(card, name, price, desc) {
+  document.querySelectorAll('.necklace-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+  const item = document.getElementById('ord-item'); if(item) item.value=name+' — '+price;
+  if(currentUser){ const on=document.getElementById('ord-name'); const oe=document.getElementById('ord-email'); if(on)on.value=currentUser.name; if(oe)oe.value=currentUser.email; }
+  document.getElementById('ord-form').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function submitOrder() {
+  const item = document.getElementById('ord-item').value;
+  const name = document.getElementById('ord-name').value.trim();
+  const phone = document.getElementById('ord-phone').value.trim();
+  const addr = document.getElementById('ord-addr').value.trim();
+  if(!item||!name||!phone||!addr) { alert(currentLang==='id'?'Pilih kalung dan lengkapi formulir.':'Please select a necklace and fill in required fields.'); return; }
+  DB.orders.push({
+    id:Date.now(), userId:currentUser?currentUser.id:null,
+    item, name, phone, email:document.getElementById('ord-email').value,
+    address:addr, qty:document.getElementById('ord-qty').value,
+    color:document.getElementById('ord-color').value,
+    payment:document.getElementById('ord-pay').value,
+    status:'Pending', date:new Date().toISOString().split('T')[0]
+  });
+  document.getElementById('ord-form').style.display='none';
+  document.getElementById('ord-success').classList.add('show');
+}
+
+/* --- CONTACT --- */
+function submitContact() {
+  const email = document.getElementById('cont-email').value.trim();
+  const msg = document.getElementById('cont-msg').value.trim();
+  if(!email||!msg) { alert(currentLang==='id'?'Email dan pesan wajib diisi.':'Email and message are required.'); return; }
+  document.getElementById('cont-form').style.display='none';
+  document.getElementById('cont-success').classList.add('show');
+}
+
+/* --- READER PORTAL --- */
+function openReaderPortal() {
+  if(!currentUser) return;
+  const gr = document.getElementById('reader-greeting');
+  if(gr) gr.textContent = (currentLang==='id'?'Halo, ':'Hello, ')+currentUser.name.split(' ')[0]+'.';
+  const an = document.getElementById('acc-name'); if(an) an.value=currentUser.name;
+  const ae = document.getElementById('acc-email'); if(ae) ae.value=currentUser.email;
+
+  const myStories = DB.stories.filter(s=>s.userId===currentUser.id);
+  const rsl = document.getElementById('r-stories-list');
+  if(rsl) rsl.innerHTML = myStories.length ? myStories.map(s=>`
+    <div style="background:var(--dark-surface);border:1px solid var(--border);border-radius:2px;padding:1.25rem 1.5rem;margin-bottom:.75rem">
+      <span class="badge ${s.status==='approved'?'badge-approved':s.status==='rejected'?'badge-rejected':'badge-pending'}" style="margin-bottom:.5rem;display:inline-block">${s.status==='approved'?t('approved_s'):s.status==='rejected'?t('rejected'):t('pending_s')}</span>
+      <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:300;color:var(--gray);margin:.4rem 0">${s.title}</div>
+      <div style="font-size:.75rem;color:rgba(224,224,224,.25)">${s.date}</div>
+    </div>`).join('') : `<div style="font-size:.82rem;color:rgba(224,224,224,.25);padding:1rem 0">${currentLang==='id'?'Belum ada cerita yang dikirim.':'No stories submitted yet.'}</div>`;
+
+  const mySigs = DB.signatures.filter(s=>s.userId===currentUser.id);
+  const rpl = document.getElementById('r-pet-list');
+  if(rpl) rpl.innerHTML = mySigs.length ? mySigs.map(s=>`
+    <div style="background:var(--dark-surface);border:1px solid var(--border);border-radius:2px;padding:1.25rem 1.5rem;margin-bottom:.75rem">
+      <div style="font-size:.85rem;color:var(--gray)">${s.anon?(currentLang==='id'?'Ditanda-tangani sebagai Anonim':'Signed as Anonymous'):(currentLang==='id'?'Ditanda-tangani sebagai ':'Signed as ')+s.fname+' '+s.lname}</div>
+      <div style="font-size:.72rem;color:rgba(224,224,224,.25);margin-top:.25rem">${s.location||''} · ${s.date}</div>
+      ${s.comment?`<div style="font-size:.78rem;color:rgba(224,224,224,.3);font-style:italic;margin-top:.4rem">"${s.comment}"</div>`:''}
+    </div>`).join('') : `<div style="font-size:.82rem;color:rgba(224,224,224,.25);padding:1rem 0">${currentLang==='id'?'Belum menandatangani petisi.':'Have not signed the petition yet.'} <button class="btn btn-teal btn-sm" style="margin-top:.5rem;display:block" onclick="showPage('petition')">${currentLang==='id'?'Tanda Tangan Sekarang':'Sign Now'}</button></div>`;
+
+  const myOrders = DB.orders.filter(o=>o.userId===currentUser.id);
+  const rol = document.getElementById('r-orders-list');
+  if(rol) rol.innerHTML = myOrders.length ? myOrders.map(o=>`
+    <div style="background:var(--dark-surface);border:1px solid var(--border);border-radius:2px;padding:1.25rem 1.5rem;margin-bottom:.75rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div>
+        <div style="font-size:.875rem;color:var(--gray);font-weight:400">${o.item}</div>
+        <div style="font-size:.72rem;color:rgba(224,224,224,.25);margin-top:.2rem">${o.date} · Qty ${o.qty} · ${o.color}</div>
+      </div>
+      <span class="badge ${o.status==='Completed'?'badge-approved':'badge-pending'}">${o.status}</span>
+    </div>`).join('') : `<div style="font-size:.82rem;color:rgba(224,224,224,.25);padding:1rem 0">${currentLang==='id'?'Belum ada pesanan.':'No orders yet.'}</div>`;
+
+  showPage('reader');
+}
+
+function showReaderPanel(id, btn) {
+  document.querySelectorAll('.reader-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.reader-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('rpanel-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+
+function saveAccount() {
+  if(!currentUser) return;
+  const n = document.getElementById('acc-name').value.trim();
+  if(n) currentUser.name=n;
+  const np = document.getElementById('acc-pass').value;
+  if(np) currentUser.password=np;
+  const u = DB.users.find(x=>x.id===currentUser.id);
+  if(u){ if(n)u.name=n; if(np)u.password=np; }
+  updateNavAuth();
+  alert(currentLang==='id'?'Akun berhasil diperbarui.':'Account updated successfully.');
+}
+
+/* --- ADMIN --- */
+function renderAdminDashboard() {
+  const m = document.getElementById('adm-metrics');
+  if(m) m.innerHTML=`
+    <div class="a-metric"><div class="a-metric-val">${DB.signatures.length}</div><div class="a-metric-label">Tanda Tangan</div></div>
+    <div class="a-metric"><div class="a-metric-val">${DB.stories.filter(s=>s.status==='approved').length}</div><div class="a-metric-label">Cerita Tayang</div></div>
+    <div class="a-metric"><div class="a-metric-val">${DB.orders.length}</div><div class="a-metric-label">Pesanan</div></div>
+    <div class="a-metric"><div class="a-metric-val">${DB.users.filter(u=>u.role==='reader').length}</div><div class="a-metric-label">Pembaca Terdaftar</div></div>`;
+
+  const ps = DB.stories.filter(s=>s.status==='pending');
+  const p = document.getElementById('adm-pending');
+  if(p) p.innerHTML = ps.length ? ps.map(s=>`
+    <div class="pending-item">
+      <div><div class="pending-item-title">${s.title}</div><div class="pending-item-meta">${s.name} · ${s.date} · ${s.lang}</div></div>
+      <div><button class="ab ab-view" onclick="openStory(${s.id})">Lihat</button><button class="ab ab-approve" onclick="approveStory(${s.id})">Setujui</button><button class="ab ab-reject" onclick="rejectStory(${s.id})">Tolak</button></div>
+    </div>`).join('') : `<div style="font-size:.78rem;color:rgba(224,224,224,.2);padding:.75rem 0">${currentLang==='id'?'Tidak ada cerita yang menunggu tinjauan.':'No stories pending review.'}</div>`;
+}
+
+function showAdminPanel(id, btn) {
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sidebar-btn').forEach(b=>b.classList.remove('active'));
+  const panel = document.getElementById('panel-'+id); if(panel) panel.classList.add('active');
+  if(btn) btn.classList.add('active');
+  const renders = {
+    'dash': renderAdminDashboard,
+    'a-stories': renderStoriesTable,
+    'a-petitions': renderPetitionsTable,
+    'a-orders': renderOrdersTable,
+    'a-users': renderUsersTable
+  };
+  if(renders[id]) renders[id]();
+}
+
+function renderStoriesTable() {
+  const t = document.getElementById('tbl-stories'); if(!t) return;
+  t.innerHTML=`<thead><tr><th>Judul</th><th>Penulis</th><th>Tanggal</th><th>Lang</th><th>Status</th><th>Aksi</th></tr></thead><tbody>${
+    DB.stories.map(s=>`<tr>
+      <td style="font-weight:400">${s.title}</td>
+      <td style="color:rgba(224,224,224,.45)">${s.name}</td>
+      <td style="color:rgba(224,224,224,.3)">${s.date}</td>
+      <td><span class="badge" style="background:rgba(56,96,105,.15);color:var(--teal)">${s.lang}</span></td>
+      <td><span class="badge ${s.status==='approved'?'badge-approved':s.status==='rejected'?'badge-rejected':'badge-pending'}">${s.status}</span></td>
+      <td><button class="ab ab-view" onclick="openStory(${s.id})">Lihat</button>${s.status==='pending'?`<button class="ab ab-approve" onclick="approveStory(${s.id});renderStoriesTable()">Setujui</button><button class="ab ab-reject" onclick="rejectStory(${s.id});renderStoriesTable()">Tolak</button>`:''}<button class="ab ab-reject" onclick="delStory(${s.id})">Hapus</button></td>
+    </tr>`).join('')
+  }</tbody>`;
+}
+
+function renderPetitionsTable() {
+  const t = document.getElementById('tbl-petitions'); if(!t) return;
+  t.innerHTML=`<thead><tr><th>Nama</th><th>Email</th><th>Lokasi</th><th>Komentar</th><th>Tanggal</th></tr></thead><tbody>${
+    DB.signatures.map(s=>`<tr>
+      <td style="font-weight:400">${s.anon?'Anonim':s.fname+' '+s.lname}</td>
+      <td style="color:rgba(224,224,224,.35)">${s.email||'—'}</td>
+      <td style="color:rgba(224,224,224,.35)">${s.location||'—'}</td>
+      <td style="color:rgba(224,224,224,.35);font-style:italic">${s.comment||'—'}</td>
+      <td style="color:rgba(224,224,224,.25)">${s.date}</td>
+    </tr>`).join('')
+  }</tbody>`;
+}
+
+function renderOrdersTable() {
+  const t = document.getElementById('tbl-orders'); if(!t) return;
+  t.innerHTML=`<thead><tr><th>Item</th><th>Pelanggan</th><th>HP</th><th>Qty</th><th>Status</th><th>Update</th></tr></thead><tbody>${
+    DB.orders.map(o=>`<tr>
+      <td style="font-weight:400">${o.item}</td>
+      <td>${o.name}</td><td style="color:rgba(224,224,224,.45)">${o.phone}</td><td>${o.qty}</td>
+      <td><span class="badge ${o.status==='Completed'?'badge-approved':'badge-pending'}">${o.status}</span></td>
+      <td><select onchange="DB.orders.find(x=>x.id===${o.id}).status=this.value;renderOrdersTable()" style="background:var(--dark-surface);border:1px solid var(--border);color:var(--gray);padding:.3rem .5rem;font-size:.72rem;border-radius:2px">
+        ${['Pending','Processing','Shipped','Completed','Cancelled'].map(st=>`<option${o.status===st?' selected':''}>${st}</option>`).join('')}
+      </select></td>
+    </tr>`).join('')
+  }</tbody>`;
+}
+
+function renderUsersTable() {
+  const t = document.getElementById('tbl-users'); if(!t) return;
+  t.innerHTML=`<thead><tr><th>Nama</th><th>Email</th><th>Role</th><th>Bergabung</th><th>Aksi</th></tr></thead><tbody>${
+    DB.users.map(u=>`<tr>
+      <td style="font-weight:400">${u.name}</td>
+      <td style="color:rgba(224,224,224,.35)">${u.email}</td>
+      <td><span class="badge ${u.role==='admin'?'badge-admin':'badge-reader'}">${u.role}</span></td>
+      <td style="color:rgba(224,224,224,.25)">${u.joined}</td>
+      <td>${u.role!=='admin'?`<button class="ab ab-reject" onclick="if(confirm('Hapus pengguna ini?')){DB.users=DB.users.filter(x=>x.id!==${u.id});renderUsersTable()}">Hapus</button>`:'<span style="color:rgba(224,224,224,.15);font-size:.72rem">—</span>'}</td>
+    </tr>`).join('')
+  }</tbody>`;
+}
+
+function approveStory(id){const s=DB.stories.find(x=>x.id===id);if(s)s.status='approved';renderAdminDashboard();}
+function rejectStory(id){const s=DB.stories.find(x=>x.id===id);if(s)s.status='rejected';renderAdminDashboard();}
+function delStory(id){if(!confirm(currentLang==='id'?'Hapus cerita ini?':'Delete this story?'))return;DB.stories=DB.stories.filter(x=>x.id!==id);renderStoriesTable();}
+
+function saveSettings(){
+  const np=document.getElementById('set-pass').value;
+  if(np)DB.settings.adminPass=np;
+  DB.settings.goal=parseInt(document.getElementById('set-goal').value)||10000;
+  DB.settings.email=document.getElementById('set-email').value;
+  DB.settings.wa=document.getElementById('set-wa').value;
+  alert(currentLang==='id'?'Pengaturan berhasil disimpan.':'Settings saved.');
+}
+
+/* --- INIT --- */
+updateNavAuth();
+updateHomeStats();
+setLang('id');
+</script>
+</body>
+</html>
